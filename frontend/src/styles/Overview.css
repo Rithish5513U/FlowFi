@@ -1,0 +1,104 @@
+
+.overlay {
+    position: fixed;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .overview-container {
+    width: 80%;
+    height: 70%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+  }
+  
+
+  .overview-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+    font-weight: bold;
+    /* padding-bottom:10px; */
+    padding-right: 70px;
+    padding-left: 50px;
+    margin-top: 30px;
+  }
+  
+
+  .overview-image img {
+    margin-top: 40px;
+    width: 300px;
+    height: 300px;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+
+  .overview-description {
+    margin: 10px 0px;
+    padding-left: 60px;
+    padding-right: 60px;
+    align-items: flex-start;
+    text-align:start;
+    font-size: 1.1em;
+    color: #444;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+
+  .profile-popup-overlay{
+    position: fixed;
+    top: -200px;
+    left: 570px;
+    width: 100%;
+    height: 100%;
+    /* background: rgba(0, 0, 0, 0.5);  */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+  }
+
+  .profile-popup{
+    background: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    background: rgb(218, 218, 218); 
+    text-align: center;
+    position: relative;
+    box-shadow: 0px 5px 15px rgba(82, 78, 78, 0.647);
+
+  }
+
+  .profile-popup .close-btn{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+
+  }
+  

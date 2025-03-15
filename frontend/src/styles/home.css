@@ -1,0 +1,402 @@
+
+.chatbot-button {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  background: #4de2c2;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 999;
+  font-family: 'Poppins';
+  font-weight: bolder;
+}
+
+.chatbot-button:hover{
+  transform: scale(1.02);
+  transition: .3s ease-in;
+}
+
+
+.chatbot-container {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 400px;
+  height: 550px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.chatbot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.chatbot-header span
+{
+  font-weight: bold;
+}
+
+.chatbot-header button{
+  border-radius: 5px;
+  border: none;
+}
+
+
+.chatbot-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+
+.user-msg {
+  align-self: flex-end;
+  background: #007bff;
+  color: white;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 70%;
+  word-wrap: break-word;
+
+}
+
+.bot-msg {
+  align-self: flex-start;
+  background: #f1f1f1;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+
+.chatbot-input-container {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  background: #fff;
+  align-items: center;
+}
+
+.chatbot-input-container input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.chatbot-input-container button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+
+body.light {
+  background-color: rgb(255, 254, 254);
+  color: black;
+}
+
+body.dark {
+  background-color: black;
+  color: white;
+}
+
+
+.toggle-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 34px;
+  color: inherit;
+}
+
+.toggle-button:hover {
+  transform: scale(1.2);
+}
+
+
+.navigation-bar {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  top: 0;
+  right: 0;
+  align-items: center;
+  padding: 20px;
+  background: #4de2c2;
+  color: white;
+  z-index: 2;
+  justify-content: flex-end;
+}
+
+.navigation-bar .hometopic{
+  /* border: 2px solid black; */
+  position: relative;
+    display: flex;
+    justify-content: flex-start;
+}
+.navigation-bar .hometopic h1{
+  position: absolute;
+    align-items: center;
+    text-align: flex-start;
+    font-size: 40px;
+    /* padding-left: 18%; */
+    top: -57px;
+    right: 340px;
+
+}
+
+.hometopic h1:nth-child(1){
+  color: #ffffff;
+  text-shadow: 0 0 10px #1dafe4, 0 0 20px #1dafe4, 0 0 40px #1dafe4, 0 0 80px #1dafe4, 0 0 120px #1dafe4;
+  animation: flicker 1.5s infinite alternate;
+}
+
+.hometopic h1:nth-child(2){
+  color: transparent;
+  -webkit-text-stroke: 2px #1dafe4;
+}
+
+
+
+
+.navigation-bar a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.navigation-bar a:hover {
+  transition: 0.3s ease-in;
+  transform: scale(1.02);
+}
+
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #fff;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-icon i {
+  color: #333;
+  font-size: 24px;
+}
+
+
+.home-container {
+  display: flex;
+  /* width: 100%; */
+  height: 100vh;
+}
+
+
+.homeleft,
+.homecenter
+ {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.homeleft::-webkit-scrollbar {
+  display: none; 
+}
+
+.homecenter::-webkit-scrollbar {
+  display: none; 
+}
+.homeright::-webkit-scrollbar {
+  display: none; 
+}
+
+.market-data-container {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  
+  /* margin-top: 100px; */
+  
+}
+.market-data-item {
+  background: rgba(197, 193, 193, 0.532);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.homeleft {
+  width: 350px;
+  max-height: 600px; 
+  margin-top: 130px;
+  overflow-y: auto; 
+  display: flex;
+  flex-direction: column; 
+  gap: 10px; 
+  padding: 10px;
+  background-color: #f8f9fa; 
+  border-radius: 8px;
+  
+}
+
+.left-content {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; 
+}
+
+.left-item {
+  min-width: 100px; 
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.homecenter {
+  flex: 0 0 60%;
+  background-color: #1a7a83;
+  flex: 1;
+  padding: 20px;
+  width: 800px;
+  overflow-y: auto; 
+  /* max-height: 500px;  */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+/* .homeright {
+  flex: 0 0 20%;
+  background-color: white;
+} */
+
+
+@media (max-width: 768px) {
+  .home-container {
+      flex-direction: column;
+  }
+  
+  .homeleft,
+  .homecenter {
+      flex: 1;
+      width: 100%;
+  }
+
+  .chatbot-container {
+      width: 90%;
+      height: 400px;
+      bottom: 60px;
+  }
+}
+
+
+
+.investor-container {
+  margin-top: 80px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.grid-view,
+.list-view {
+  overflow-y: auto;
+  max-height: 100%;
+  padding-right: 10px; 
+}
+
+.toggle-view {
+  margin-bottom: 10px;
+}
+.toggle-view span{
+  margin: 10px;
+}
+
+.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.investor-card {
+  background: rgb(231, 229, 229);
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.investor-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.investor-info h2 {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+.investor-info h3 {
+  margin: 5px 0;
+  font-size: 14px;
+  color: gray;
+}
+.investor-info p{
+  text-align: start;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+

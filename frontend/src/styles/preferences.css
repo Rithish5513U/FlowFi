@@ -1,0 +1,64 @@
+body{
+    overflow: scroll;
+}
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #1e1e2f;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  h2 {
+    text-align: center;
+    color: black;
+    margin-bottom: 20px;
+  }
+  
+  .ant-collapse {
+    background: #252540 !important;
+    border-radius: 8px;
+  }
+  
+  .ant-collapse-item {
+    border-radius: 8px !important;
+    overflow: hidden;
+  }
+  
+  .ant-collapse-header {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: #00d4ff !important;
+  }
+  
+  .ant-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 15px;
+  }
+  
+  .ant-checkbox-wrapper {
+    color: black !important;
+    font-size: 16px;
+  }
+  
+  .ant-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+  }
+  
+  /* .ant-btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  } */
+  
