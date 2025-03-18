@@ -1,21 +1,22 @@
-from models import User
-from pymongo import MongoClient
-from dotenv import load_dotenv
-from passlib.context import CryptContext
-import os
-
-load_dotenv()
-
-MONGO_URI = os.getenv("MONGO_URI")
-client = MongoClient(MONGO_URI)
-db = client['test']
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+from src.models.userModel import User
+from src.extensions import db, pwd_context
+from flask_jwt_extended import create_access_token
+from datetime import timedelta
 
 users = db['users']
 transactions = db['transactions']
 
 def create_user(user: User):
+    """
+    Inputs:
+        user: User object
+    Outputs:
+        response: dict
+        {
+            "success" : bool,
+            "message" : str
+        }
+    """
     try:
         found = users.find_one({"email": user.email})
         if found:
@@ -40,6 +41,17 @@ def create_user(user: User):
         }
         
 def verify_user(email, password):
+    """
+    Inputs:
+        email: str
+        password: str
+    Outputs:
+        response: dict
+        {
+            "success" : bool,
+            "message" : str
+        }
+    """
     try:
         match = users.find_one({"email": email})
         if not match:
@@ -47,19 +59,21 @@ def verify_user(email, password):
                 "success" : False,
                 "message" : "User not found"
             }
-        if pwd_context.verify(password, match["password"]):
-            return {
-                "success" : True,
-                "message" : "User verified"
-            }
-        else:
+        if not pwd_context.verify(password, match["password"]):
             return {
                 "success" : False,
                 "message" : "Password incorrect"
             }
+        token = create_access_token(identity=email, expires_delta=timedelta(hours=1))
+        
+        return {
+            "success" : True,
+            "message" : "User verified",
+            "token" : token
+        }
+            
     except Exception as e:
         return {
             "success" : False,
             "message" : f"Error detected : {str(e)}"
         }
-        

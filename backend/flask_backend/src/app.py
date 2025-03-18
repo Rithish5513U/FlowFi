@@ -1,75 +1,29 @@
-from flask import Flask, request, jsonify
-from flask_jwt_extended import JWTManager, create_access_token
+from flask import Flask
 from flask_cors import CORS
-from backend.flask_backend.src.services.news import News
-from backend.flask_backend.src.services.faq_chatbot import FAQChatBot
-from backend.flask_backend.src.services.excelhandler import ExcelHandler
-from src.services.userService import create_user, verify_user
-from src.models.userModel import User
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
+from config import Config
+from extensions import jwt
+from src.routes.auth_routes import auth_bp
+from src.routes.news_routes import news_bp
+from src.routes.faq_routes import faq_bp
+from src.routes.excel_routes import excel_bp
 
 app = Flask(__name__)
+app.config.from_object(Config)
+
+# Initialize extensions
+jwt.init_app(app)
 CORS(app)
 
-jwt = JWTManager(app)
+# Register Blueprints
+app.register_blueprint(auth_bp, url_prefix="/auth")
+app.register_blueprint(news_bp, url_prefix="/news")
+app.register_blueprint(faq_bp, url_prefix="/faq")
+app.register_blueprint(excel_bp, url_prefix="/excel")
 
-@app.route('/')
+# Home Route
+@app.route("/")
 def home():
     return "Welcome to FlowFi!"
 
-@app.post('/register')
-def register():
-    data = request.json
-    name = data['name']
-    email = data['email']
-    password = data['password']
-    user = User(name=name, email=email, password=password)
-    response = create_user(user)
-    if response.success:
-        return jsonify({"message": response.message})
-    else:
-        return jsonify({"error": response.message})
-    
-@app.post('/login')
-def login():
-    data = request.json
-    email = data['email']
-    password = data['password']
-    response = verify_user(email, password)
-    if response.success:
-        access_token = create_access_token(identity=email)
-        return jsonify({"message": response.message, "access_token": access_token})
-    else:
-        return jsonify({"error": response.message})
-
-@app.post('/financialInsights')
-def extract_news():
-    # used to extract the news based on user preferences
-    data = request.json
-    preferences = data['preferences']
-    news = News()
-    news_data = news.get_everything(preferences)
-    return jsonify(news_data)
-    
-@app.post('/faqHandler')
-def faq_handler():
-    # used to access the FAQ chatbot
-    data = request.json
-    user_query = data['user_query']
-    chatbot = FAQChatBot()
-    response = chatbot.get_financial_insight(user_query)
-    return jsonify({"response": response})
-    
-@app.post('/triggerExcel')
-def trigger_excel():
-    # used to convert the excel file to json
-    excel = ExcelHandler()
-    data = excel.get_json()
-    return jsonify(data)
-        
-if __name__ == '__main__':
-    app.run(debug = True, port = 8080)
+if __name__ == "__main__":
+    app.run(debug=True, port=8080)
