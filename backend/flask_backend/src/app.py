@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_cors import CORS
-from src.news import News
-from src.faq_chatbot import FAQChatBot
-from src.excelhandler import ExcelHandler
+from backend.flask_backend.src.services.news import News
+from backend.flask_backend.src.services.faq_chatbot import FAQChatBot
+from backend.flask_backend.src.services.excelhandler import ExcelHandler
 from src.services.userService import create_user, verify_user
 from src.models.userModel import User
 from dotenv import load_dotenv
