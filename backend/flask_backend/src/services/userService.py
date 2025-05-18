@@ -1,5 +1,5 @@
-from src.models.userModel import User
-from src.extensions import db, pwd_context
+from models.userModel import User
+from extensions import db, pwd_context
 from flask_jwt_extended import create_access_token
 from datetime import timedelta
 
@@ -28,7 +28,9 @@ def create_user(user: User):
         users.insert_one({
             "name": user.name,
             "email": user.email,
-            "password": hashed_password
+            "password": hashed_password,
+            "assets": None,
+            "virtualBalance": 10000
         })
         return {
             "success" : True,
@@ -72,6 +74,28 @@ def verify_user(email, password):
             "token" : token
         }
             
+    except Exception as e:
+        return {
+            "success" : False,
+            "message" : f"Error detected : {str(e)}"
+        }
+        
+def fetchUser(email):
+    """
+    Inputs:
+        email: str
+    Outputs:
+        User
+    """
+    try:
+        match = users.find_one({"email": email})
+        if not match:
+            return {
+                "success" : False,
+                "message" : "User not found"
+            }
+        return User(**match)
+    
     except Exception as e:
         return {
             "success" : False,

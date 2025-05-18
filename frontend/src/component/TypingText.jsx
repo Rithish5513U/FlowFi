@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const TypingAnimation = () => {
-  const text = "Effortless money flow management";
+  const text = "AI Powered Sales Forecasting";
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);
   const typingSpeed = 50; 

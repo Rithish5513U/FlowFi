@@ -33,7 +33,7 @@ const Homepage = () => {
 
     try {
       console.log(privateKey)
-      const response = await fetch("http://localhost:5000/faqHandler", {
+      const response = await fetch("http://localhost:8080/faqHandler", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -258,8 +258,8 @@ const Homepage = () => {
 
       <div className="navigation-bar">
         <div className="hometopic">
-          <h1>FlowFi</h1>
-          <h1>FlowFi</h1>
+          <h1>SalesVista AI</h1>
+          <h1>SalesVista AI</h1>
         </div>
 
         <a href="/homepage">Home</a>

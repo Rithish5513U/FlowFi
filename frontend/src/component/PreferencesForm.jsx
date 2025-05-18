@@ -79,7 +79,7 @@ const PreferencesForm = () => {
       const requestBody = { preferences: selectedPreferencesArray };
       console.log("Request Body:", JSON.stringify(requestBody));
       // console.log("Token:", privateKey);
-      const response = await fetch("http://localhost:5000/user/financial-insights", {
+      const response = await fetch("http://localhost:8080/news/financialInsights", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

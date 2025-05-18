@@ -41,8 +41,8 @@ const SignUp = () => {
     <div className='main-sig'>
       <div className='leftt'>
         <div className='topic'>
-          <h1>FlowFi</h1>
-          <h1>FlowFi</h1>
+          <h1>SalesVista AI</h1>
+          <h1>SalesVista AI</h1>
           <TypingAnimation />
         </div>
       </div>

@@ -9,3 +9,6 @@ xlrd
 yfinance
 passlib
 pydantic
+pydantic[email]
+bcrypt
+asyncio

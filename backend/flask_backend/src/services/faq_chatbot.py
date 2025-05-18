@@ -20,8 +20,9 @@ class FAQChatBot:
         )
         
     def get_financial_insight(self, user_query):
-        response = self.chat.send_message(user_query)
+        try:
+            response = self.chat.send(user_query)
+            return {"response": response}
         
-        if hasattr(response, 'text'):
-            return response.text.strip()
-        return "Sorry, I couldn't understand your query. Please try again."
+        except Exception as e:
+            return {"error": str(e)}

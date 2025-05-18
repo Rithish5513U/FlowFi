@@ -22,7 +22,7 @@ const Login = () => {
       setLoading(true);
       const loginData = { email, password };
 
-      const response = await axios.post("http://localhost:5000/user/login", loginData);
+      const response = await axios.post("http://localhost:8080/auth/login", loginData);
       // console.log(response.data.token);
       dispatch(setPrivateKey(response.data.token));
       
@@ -50,8 +50,8 @@ const Login = () => {
     <div className='main-log'>
       <div className='left'>
         <div className='topic'>
-          <h1>FlowFi</h1>
-          <h1>FlowFi</h1>
+          <h1>SalesVista AI</h1>
+          <h1>SalesVista AI</h1>
           <TypingAnimation />
         </div>
       </div>

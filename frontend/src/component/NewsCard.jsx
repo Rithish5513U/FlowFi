@@ -43,7 +43,7 @@ const NewsCard = () => {
       {/* Navigation Bar */}
       <div className="navigation-bar">
         <div className="hometopic">
-          <h1>FlowFi</h1>
+          <h1>SalesVista AI</h1>
         </div>
 
         <a href="/homepage">Home</a>
