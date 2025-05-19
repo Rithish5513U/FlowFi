@@ -1,90 +1,53 @@
 import pandas as pd
-import os
+from extensions import db
+from flask_jwt_extended import get_jwt_identity
+
+transactions = db['transactions']
 
 class ExcelHandler:
     def __init__(self):
-        self.folder_path = "flask_backend/src/data/"
         self.required_columns = ['date', 'description', 'withdrawals', 'deposits', 'balance']
-    
-    def getFiles(self):
+
+    def process_uploaded_file(self, file_stream):
         """
-        Function to get the files from the folder
+        Function to process a single uploaded Excel file (in-memory) and store unique records to DB
         Inputs:
-            None
+            file_stream -> BytesIO : Uploaded file stream from client
         Outputs:
-            List of files
+            Tuple : (List of user's transactions in dict format, status code)
         """
-        files = os.listdir(self.folder_path)
-        files = [
-            os.path.join(self.folder_path, f) for f in files 
-            if (f.endswith(".xlsx") or f.endswith(".xls")) and os.path.isfile(os.path.join(self.folder_path, f))
-        ]
-        return files
-    
-    def validateExcel(self, file):
-        """
-        Function to validate the excel file
-        Inputs:
-            file -> str
-        Outputs:
-            boolean value
-        """
-        data = pd.read_excel(file)
-        columns = data.columns
-        columns = [column.lower() for column in columns]
-        for column in self.required_columns:
-            if column not in columns:
-                return False
-        return True
-    
-    def getData(self, file):
-        """
-        Function to get the data from the excel file
-        Inputs:
-            file -> str
-        Outputs:
-            data -> dict
-        """
-        data = pd.read_excel(file)
-        data.columns = [column.lower() for column in data.columns]
-        data = data[self.required_columns]
-        return data
-    
-    def delete_files(self, folder_path):
-        """
-        Function to delete the files from the folder
-        Inputs:
-            folder_path -> str
-        Outputs:
-            None
-        """
-        files = os.listdir(folder_path)
-        for file in files:
-            os.remove(os.path.join(folder_path, file))
-        
-    def get_json(self):
-        """
-        Function to convert the excel file to json
-        Inputs:
-            None
-        Outputs:
-            json data
-        """
-        files = self.getFiles()
-        data = pd.DataFrame()
-        incorrect = 0
-        for file in files:
-            if self.validateExcel(file):
-                data = pd.concat([data, self.getData(file)])
+        try:
+            df = pd.read_excel(file_stream)
+            df.columns = [column.lower() for column in df.columns]
+
+            if not all(col in df.columns for col in self.required_columns):
+                return {"error": "Invalid Excel format"}, 400
+
+            df = df[self.required_columns]
+            df.drop_duplicates(inplace=True)
+            df.fillna(0, inplace=True)
+
+            user_email = get_jwt_identity()
+            existing_entry = transactions.find_one({"email": user_email})
+
+            if existing_entry:
+                existing_df = pd.DataFrame(existing_entry.get("data", []))
+                combined_df = pd.concat([existing_df, df], ignore_index=True)
+                combined_df.drop_duplicates(inplace=True)
+                combined_data = combined_df.to_dict(orient='records')
+
+                transactions.update_one(
+                    {"email": user_email},
+                    {"$set": {"data": combined_data}}
+                )
             else:
-                incorrect += 1
-        if incorrect > 0:
-            print(f"{incorrect} files are incorrect")
-            
-        data.drop_duplicates(inplace = True)                   # checking for multiple same entries
-        data.fillna(0, inplace = True)                         # filling the null values with 0
-        data = data.to_dict(orient = 'records')
-        self.delete_files(self.folder_path)                    # deleting the files after reading
-        
-        return data
-        
+                combined_data = df.to_dict(orient='records')
+                transactions.insert_one({
+                    "email": user_email,
+                    "data": combined_data
+                })
+
+            return combined_data, 200
+
+        except Exception as e:
+            return {"error": str(e)}, 500
