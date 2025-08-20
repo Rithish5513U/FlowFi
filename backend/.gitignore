@@ -1,7 +1,7 @@
-flask_backend/.env
+# flask_backend/.env
 flask_backend/src/__pycache__
 node_backend/node_modules
-node_backend/.env
+# node_backend/.env
 flask_backend/src/routes/__pycache__
 flask_backend/src/models/__pycache__
 flask_backend/src/services/__pycache__
