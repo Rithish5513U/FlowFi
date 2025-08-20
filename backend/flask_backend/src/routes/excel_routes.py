@@ -4,7 +4,7 @@ from services.excelhandler import ExcelHandler
 
 excel_bp = Blueprint("excel", __name__)
 
-@excel_bp.post("/triggerExcel")
+@excel_bp.post("/uploadExcel")
 @jwt_required()
 def trigger_excel():
     if 'file' not in request.files:
